@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use \yii\db\ActiveRecord;
 
+
 /**
  * This is the model class for table "gallery".
  * @property integer $id
@@ -12,6 +13,7 @@ use \yii\db\ActiveRecord;
  */
 class Gallery extends ActiveRecord
 {
+  public $imageFile;
   /**
    * @inheritdoc
    */

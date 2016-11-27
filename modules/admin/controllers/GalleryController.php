@@ -4,10 +4,14 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\modules\admin\models\Gallery;
+use yii\base\ErrorException;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use app\modules\admin\models\UploadForm;
 
 /**
  * GalleryController implements the CRUD actions for Gallery model.
@@ -28,6 +32,12 @@ class GalleryController extends Controller
         '<h4>Изображение отсутствует</h4><br>' .
         '<img src="../../images/gallery/no-image.jpg" width="240" height="135">';
     }
+  }
+
+  public function getGalleryCount()
+  {
+    $model = new Gallery();
+    return $model->find()->count('id');
   }
   /**
    * @inheritdoc
@@ -82,13 +92,7 @@ class GalleryController extends Controller
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-      if(empty($model->image))
-      {
-        $model->image = null;
-        $model->save();
-      }
-
-      return $this->redirect(['view', 'id' => $model->id]);
+      return $this->redirect(['image', 'id' => $model->id]);
     } else {
       return $this->render('create', [
         'model' => $model,
@@ -108,17 +112,33 @@ class GalleryController extends Controller
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-      if(empty($model->image))
-      {
-        $model->image = null;
-        $model->save();
-      }
-
-      return $this->redirect(['view', 'id' => $model->id]);
+      return $this->redirect(['image', 'id' => $model->id]);
     } else {
       return $this->render('update', [
         'model' => $model,
       ]);
+    }
+  }
+
+  public function actionImage($id)
+  {
+    $file = new UploadForm();
+    $model = $this->findModel($id);
+
+    $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
+    if (Yii::$app->request->isPost) {
+      if ($file->upload($id)) {
+        $model->image = $file->getNameImage($id);
+        $model->save();
+        return $this->redirect(['view', 'id' => $id]);
+      }
+      else
+      {
+        return $this->redirect(['view', 'id' => $id]);
+      }
+    }
+    else {
+      return $this->render('image', compact('file', 'model'));
     }
   }
 
