@@ -2,65 +2,70 @@
 
 namespace app\controllers;
 
-
-use app\models\Contacts;
 use app\models\Index;
 use app\models\Services;
-use app\models\WhyWe;
-use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
 use app\models\Price;
 use app\models\Gallery;
-use app\models\Advantage;
 use app\models\Slider;
-use app\models\OurProducts;
+//use Yii;
+//use yii\filters\AccessControl;
+//use yii\filters\VerbFilter;
+//use app\models\LoginForm;
 
 class SiteController extends AppController
 {
 
+/*
+ * Behaviors
+ */
+//  public function behaviors()
+//  {
+//    return [
+//      'access' => [
+//        'class' => AccessControl::className(),
+//        'only' => ['logout'],
+//        'rules' => [
+//          [
+//            'actions' => ['logout'],
+//            'allow' => true,
+//            'roles' => ['@'],
+//          ],
+//        ],
+//      ],
+//      'verbs' => [
+//        'class' => VerbFilter::className(),
+//        'actions' => [
+//          'logout' => ['post'],
+//        ],
+//      ],
+//    ];
+//  }
+
+/*
+ * Actions
+ */
+//  public function actions()
+//  {
+//    return [
+//      'error' => [
+//        'class' => 'yii\web\ErrorAction',
+//      ],
+//      'captcha' => [
+//        'class' => 'yii\captcha\CaptchaAction',
+//        'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+//      ],
+//    ];
+//  }
+
   /*
-   * Behaviors and Actions
+   * Контент, отображаемый на сайте записан в Базе данных "pro_stm" его можно менять в админке,
+   * Для этого модель и контроллер админ панели находится в Модуле - app/modules/admin/
    */
-  public function behaviors()
-  {
-    return [
-      'access' => [
-        'class' => AccessControl::className(),
-        'only' => ['logout'],
-        'rules' => [
-          [
-            'actions' => ['logout'],
-            'allow' => true,
-            'roles' => ['@'],
-          ],
-        ],
-      ],
-      'verbs' => [
-        'class' => VerbFilter::className(),
-        'actions' => [
-          'logout' => ['post'],
-        ],
-      ],
-    ];
-  }
-
-  public function actions()
-  {
-    return [
-      'error' => [
-        'class' => 'yii\web\ErrorAction',
-      ],
-      'captcha' => [
-        'class' => 'yii\captcha\CaptchaAction',
-        'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-      ],
-    ];
-  }
 
   /*
-   * Стартовая страница
+   * Стартовая страница Index
+   * На этой странице отображается слайдер, который берет контент из таблицы Slider
+   * Далее весь остальной контент используется из таблицы Index
    */
   public function actionIndex()
   {
@@ -71,69 +76,78 @@ class SiteController extends AppController
   }
 
   /*
-   * Прайс-лист
+   * Раздел Продукция
    */
-  public function actionPrices()
-  {
-    //Подключение к базе данных
-    $allPrices = Price::find()->select('id, name, price')->all();
-
-    return $this->render('prices', compact('allPrices'));
-  }
+  //-- Раздел с продукцией генерируется отдельным контроллером ProductsController --
 
   /*
-   * Галерея
-   */
-  public function actionGallery()
-  {
-    //Подключение к базе данных
-    $allGallery = Gallery::find()->select('id, title, image')->all();
-
-    return $this->render('gallery', compact('allGallery'));
-  }
-
-  /*
-   * Услуги
+   * Раздел Услуги
+   * Информация для этой страницы полностью заполняется из таблицы Services в БД
    */
   public function actionServices()
   {
-    //Подключение к базе данных
     $allServices = Services::find()->select('id, name, text')->all();
 
     return $this->render('services', compact('allServices'));
   }
 
   /*
-   * Контакты
+   * Раздел Галерея
+   * В этом разделе отображаются фотографии из таблицы Gallery
+   * Эти фото админ сайта может добавлять/изменять в админ панеле благодаря CRUD по адресу - /admin/gallery
+   * Модель и контроллер админ панели находится в Модуле - app/modules/admin/
+   */
+  public function actionGallery()
+  {
+    $allGallery = Gallery::find()->select('id, title, image')->all();
+
+    return $this->render('gallery', compact('allGallery'));
+  }
+
+  /*
+   * Раздел Прайс-лист
+   * Список стоимости продукции из таблицы Prices
+   */
+  public function actionPrices()
+  {
+    $allPrices = Price::find()->select('id, name, price')->all();
+
+    return $this->render('prices', compact('allPrices'));
+  }
+
+  /*
+   * Раздел Контакты
+   * Подключение к базе данных и заполнение контактными данными производится в родительском контроллере AppController
+   * Для этого используется метод myGetContacts(), этот метот проверяет и выводит только заполненные значения
    */
   public function actionContact()
   {
     return $this->render('contact');
   }
 
-  /*
-   * Авторизация пользователей
-   */
-  public function actionLogin()
-  {
-    if (!Yii::$app->user->isGuest) {
-      return $this->goHome();
-    }
-
-    $model = new LoginForm();
-    if ($model->load(Yii::$app->request->post()) && $model->login()) {
-      return $this->goBack();
-    }
-    return $this->render('login', compact('$model'));
-  }
-
-  /*
-   * Выйти из личного кабинета
-   */
-  public function actionLogout()
-  {
-    Yii::$app->user->logout();
-
-    return $this->goHome();
-  }
+//  /*
+//   * Авторизация пользователей
+//   */
+//  public function actionLogin()
+//  {
+//    if (!Yii::$app->user->isGuest) {
+//      return $this->goHome();
+//    }
+//
+//    $model = new LoginForm();
+//    if ($model->load(Yii::$app->request->post()) && $model->login()) {
+//      return $this->goBack();
+//    }
+//    return $this->render('login', compact('$model'));
+//  }
+//
+//  /*
+//   * Выйти из личного кабинета
+//   */
+//  public function actionLogout()
+//  {
+//    Yii::$app->user->logout();
+//
+//    return $this->goHome();
+//  }
 }

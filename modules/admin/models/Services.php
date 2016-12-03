@@ -13,35 +13,36 @@ use Yii;
  */
 class Services extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'services';
-    }
+  /**
+   * @inheritdoc
+   */
+  public static function tableName()
+  {
+    return 'services';
+  }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'text'], 'required'],
-            [['text'], 'string'],
-            [['name'], 'string', 'max' => 100],
-        ];
-    }
+  /**
+   * @inheritdoc
+   */
+  public function rules()
+  {
+    return [
+      [['name', 'text'], 'required'],
+      [['text'], 'string'],
+      [['name'], 'string', 'max' => 100],
+      [['name', 'text'], 'filter', 'filter'=>'trim']
+    ];
+  }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'Номер',
-            'name' => 'Название',
-            'text' => 'Текст',
-        ];
-    }
+  /**
+   * @inheritdoc
+   */
+  public function attributeLabels()
+  {
+    return [
+      'id' => 'Номер',
+      'name' => 'Название',
+      'text' => 'Текст',
+    ];
+  }
 }

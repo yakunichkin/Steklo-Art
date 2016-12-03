@@ -4,10 +4,10 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\modules\admin\models\Gallery;
-use yii\base\ErrorException;
+//use yii\base\ErrorException;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii\web\HttpException;
+//use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -34,7 +34,7 @@ class GalleryController extends Controller
     }
   }
 
-  public function getGalleryCount()
+  public function myGetGalleryCount()
   {
     $model = new Gallery();
     return $model->find()->count('id');
@@ -128,7 +128,7 @@ class GalleryController extends Controller
     $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
     if (Yii::$app->request->isPost) {
       if ($file->upload($id)) {
-        $model->image = $file->getNameImage($id);
+        $model->image = $file->myGetNameImage($id);
         $model->save();
         return $this->redirect(['view', 'id' => $id]);
       }

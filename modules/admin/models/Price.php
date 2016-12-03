@@ -31,6 +31,7 @@ class Price extends ActiveRecord
       [['name', 'price'], 'required'],
       [['price'], 'integer'],
       [['name'], 'string', 'max' => 155],
+      [['name', 'price'], 'filter', 'filter'=>'trim']
     ];
   }
 

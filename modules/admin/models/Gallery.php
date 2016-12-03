@@ -13,35 +13,37 @@ use Yii;
  */
 class Gallery extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'gallery';
-    }
+  /**
+   * @inheritdoc
+   */
+  public static function tableName()
+  {
+    return 'gallery';
+  }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['title'], 'required'],
-            [['title'], 'string', 'max' => 100],
-            [['image'], 'string', 'max' => 255],
-        ];
-    }
+  /**
+   * @inheritdoc
+   */
+  public function rules()
+  {
+    return [
+      [['title'], 'required'],
+      [['title'], 'string', 'max' => 100],
+      [['image'], 'string', 'max' => 255],
+      [['title', 'image'], 'filter', 'filter'=>'trim'],
+      [['image'], 'default', 'value' => null]
+    ];
+  }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-          'id' => 'Номер',
-          'title' => 'Название',
-          'image' => 'Изображение',
-        ];
-    }
+  /**
+   * @inheritdoc
+   */
+  public function attributeLabels()
+  {
+    return [
+      'id' => 'Номер',
+      'title' => 'Название',
+      'image' => 'Изображение',
+    ];
+  }
 }

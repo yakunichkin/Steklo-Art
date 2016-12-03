@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
       'email:email',
       'skype',
     ],
-    'buttons' => ['delete']
+    //'buttons' => ['delete']
   ]) ?>
 
 </div>

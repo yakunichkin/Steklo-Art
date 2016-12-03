@@ -721,6 +721,12 @@ input.comm-field:focus, #message2:focus, #comment:focus {outline: 0;
 .admin-index-preview li img{
   box-shadow: 2px 2px 4px rgba(0,0,0, 0.4) !important;
 }
+
+.gal-img img, .gallery-view img
+{
+  object-fit: cover;
+}
+/* - - - - - End my styles - - - - - */
 /**** END COMMENTS STYLES*****/
 
 

@@ -21,14 +21,15 @@ class UploadForm extends Model
   public function upload($id)
   {
     if ($this->validate()) {
-      $this->imageFile->saveAs('../web/images/gallery/gal-' . $id . '.' . $this->imageFile->extension);
+      //$this->imageFile->saveAs('../web/images/gallery/gal-' . $id . '.' . $this->imageFile->extension);
+      $this->imageFile->saveAs('../web/images/gallery/'. $this->myGetNameImage($id));
       return true;
     } else {
       return false;
     }
   }
 
-  public function getNameImage($id)
+  public function myGetNameImage($id)
   {
     return 'gal-'. $id . '.' . $this->imageFile->extension;
   }
