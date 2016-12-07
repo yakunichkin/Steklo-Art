@@ -7,6 +7,12 @@ use app\models\Contacts;
 
 class AppController extends Controller
 {
+  // Метод, возвращает количество записей в таблице Products
+  public function myFullOfProductsCount()
+  {
+    return Products::find()->count('id');
+  }
+
   /*
    * Данный метод предназначен для создания массива элементов, который затем будет передан виджетам всем Menu::widget()
    *
@@ -20,12 +26,12 @@ class AppController extends Controller
    */
   public function myGetProductsItemsLinkArray($check = null)
   {
-    // Переменная с количеством записей в таблице Products
-    $fullOfProductsCount = Products::find()->count('id');
+    // Переменная, содаржащее число всех записей в таблице Products
+    $fullOfProductsCount = $this->myFullOfProductsCount();
     // Переменная, содержащая половину количества записей для разделения пополам левого и правого меню футера
     $halfOfProductsCount = (int)ceil($fullOfProductsCount / 2);
 
-    // Подключаемся к базе данных и записываем в объект полученные значение
+    // Подключаемся к базе данных и записываем в объект полученные значения
     $allProducts = Products::find()->select('name')->all();
     // Создадим в массиве пустую нулевую ячейку, чтобы запись массива в цикле начиналась с 1, а не с 0
     $arrayProductsName[0] = null;
@@ -50,7 +56,7 @@ class AppController extends Controller
       $fromCounter = $halfOfProductsCount + 1;
       $toCounter = $fullOfProductsCount;
     }
-    // Иначе если параметр отстутствует - будет выведен весь список меню и не будет поделен пополам
+    // Иначе если параметр отстутствует - будет выведен весь список для главного меню и он не будет поделен пополам
     else
     {
       $fromCounter = 1;

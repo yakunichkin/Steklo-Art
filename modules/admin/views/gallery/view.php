@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\modules\admin\models\Gallery */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Galleries', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Галерея', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gallery-view col-lg-8">

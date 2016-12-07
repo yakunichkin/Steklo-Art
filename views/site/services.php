@@ -32,105 +32,43 @@ endif;
 <!--Начало Услуги-->
 <div class="wrap margin-block">
   <div class="container">
+
+    <!--Раздел Услуги-->
     <div class="row">
       <div class="span12">
-
         <?= $service[1]['text'] ?>
-
       </div>
-      <!--Конец span12-->
     </div>
-    <!--Конец row-->
 
     <div class="row">
-      <div class="span4 home-feature">
-        <div class="service-feature">
-          <?= $service[2]['name'] ?>
+      <!-- Раздел 3 круга -->
+      <?php for($i=2; $i<=4; $i++): ?>
+        <div class="span4 home-feature">
+          <div class="service-feature">
+            <?= $service[$i]['name'] ?>
+          </div>
+            <p>
+              <?= $service[$i]['text'] ?>
+            </p>
         </div>
+      <?php endfor; ?>
 
-        <?= $service[2]['text'] ?>
-
-      </div>
-      <!--Конец home-feature-->
-
-      <div class="span4 home-feature">
-        <div class="service-feature">
-
-          <?= $service[3]['name'] ?>
-
-        </div>
-
-        <?= $service[3]['text'] ?>
-
-      </div>
-      <!--Конец home-feature-->
-
-      <div class="span4 home-feature">
-        <div class="service-feature">
-          <?= $service[4]['name'] ?>
-        </div>
-
-        <?= $service[4]['text'] ?>
-
-      </div>
-      <!--Конец home-feature-->
     </div>
-    <!--Конец row-->
 
 
     <div class="row services">
-
-      <div class="span6 service">
-        <img class="item-avatar-left" src="../images/home/service-5.png" alt=""/>
-        <h4>
-
-          <?= $service[5]['name'] ?>
-
-        </h4>
-
-        <?= $service[5]['text'] ?>
-
-      </div>
-      <!--Конец span6-->
-
-      <div class="span6 service">
-        <img class="item-avatar-left" src="../images/home/service-6.png" alt=""/>
-        <h4>
-
-          <?= $service[6]['name'] ?>
-
-        </h4>
-
-        <?= $service[6]['text'] ?>
-
-      </div>
-      <!--Конец span6-->
-
-      <div class="span6 service">
-        <img class="item-avatar-left" src="../images/home/service-7.png" alt=""/>
-        <h4>
-
-          <?= $service[7]['name'] ?>
-
-        </h4>
-
-        <?= $service[7]['text'] ?>
-
-      </div>
-      <!--Конец span6-->
-
-      <div class="span6 service">
-        <img class="item-avatar-left" src="../images/home/service-8.png" alt=""/>
-        <h4>
-
-          <?= $service[8]['name'] ?>
-
-        </h4>
-
-        <?= $service[8]['text'] ?>
-
-      </div>
-      <!--Конец span6-->
+      <!--Раздел 4 блока с картинками-->
+      <?php for($i=5; $i<=8; $i++): ?>
+        <div class="span6 service">
+          <img class="item-avatar-left" src="../images/home/service-<?= $i ?>.png" alt="<?= $service[$i]['name'] ?>"/>
+          <h4>
+            <?= $service[$i]['name'] ?>
+          </h4>
+            <p>
+              <?= $service[$i]['text'] ?>
+            </p>
+        </div>
+      <?php endfor; ?>
 
     </div>
     <!--Конец row-->

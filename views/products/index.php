@@ -1,4 +1,5 @@
 <?php
+/* @var $oneProduct object */
 use yii\helpers\Url;
 use yii\widgets\Menu;
 

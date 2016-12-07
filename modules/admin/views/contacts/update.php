@@ -6,9 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\modules\admin\models\Contacts */
 
 $this->title = 'Редактирование: Контакты';
-$this->params['breadcrumbs'][] = ['label' => 'Contacts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => 'Контакты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="contacts-update">
 

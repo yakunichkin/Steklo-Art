@@ -1,4 +1,7 @@
 <?php
+/* @var $this \yii\web\View */
+/* @var $content string */
+
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\widgets\Menu;
@@ -30,22 +33,45 @@ AppAsset::register($this);
         <img src="/images/logo.png" alt="Logo" />
       </a>
 
+      <?php
+
+      $menuItems[0] = ['label' => 'Главная', 'url' => ['/site/index']];
+      $menuItems[] = ['label' => 'Продукция',
+          'url' => ['/products/index'],
+          'options'=>['class'=>'sub-menu'],
+          'items' => $this->context->myGetProductsItemsLinkArray(), // Функция описана в контроллере AppController
+        ];
+      $menuItems[] = ['label' => 'Услуги', 'url' => ['/site/services']];
+      $menuItems[] = ['label' => 'Галерея', 'url' => ['/site/gallery']];
+      $menuItems[] = ['label' => 'Прайс-лист', 'url' => ['/site/prices']];
+      $menuItems[] = ['label' => 'Контакты', 'url' => ['/site/contact']];
+      ;
+
+      if (!Yii::$app->user->isGuest)
+      {
+        $menuItems[] =
+          [
+            'label' => ' | '
+          ];
+        $menuItems[] =
+          [
+            'label' => '<span class="glyphicon glyphicon-tasks"></span> Редактор',
+            'url' => ['/admin/']
+          ];
+        $menuItems[] =
+          [
+            'label' => '<span class="glyphicon glyphicon-log-out"></span> Выйти',
+            'url' => ['/site/logout'],
+            'linkOptions' => ['data-method' => 'post'],
+          ];
+      }
+      ?>
+
       <nav id="nav-desktop">
         <?= Menu::widget([
           'options' => ['class' => 'menu'],
-          'items' => [
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'Продукция',
-              'url' => ['/products/index'],
-              'options'=>['class'=>'sub-menu'],
-              'items' => $this->context->myGetProductsItemsLinkArray(), // Функция описана в контроллере AppController
-            ],
-            ['label' => 'Услуги', 'url' => ['/site/services']],
-            ['label' => 'Галерея', 'url' => ['/site/gallery']],
-            ['label' => 'Прайс-лист', 'url' => ['/site/prices']],
-            ['label' => 'Контакты', 'url' => ['/site/contact']],
-            ['label' => 'Админка', 'url' => ['/admin/']],
-          ],
+          'encodeLabels' => false,
+          'items' => $menuItems,
           'activeCssClass' => 'current_page_item',
         ]);
         ?>
@@ -56,13 +82,6 @@ AppAsset::register($this);
   <!--Конец Header-->
 
   <?= $content ?>
-
-  <?php
-  /*
-   * Передача переменной из контроллера
-   * $this->context->variable;
-   */
-  ?>
 
   <!--Начало Footer-->
   <footer class="wrap margin-block">
@@ -81,7 +100,7 @@ AppAsset::register($this);
                 ['label' => 'Прайс-лист', 'url' => ['/site/prices']],
                 ['label' => 'Контакты', 'url' => ['/site/contact']],
               ],
-              'activeCssClass' => 'current_page_item',
+              'activeCssClass' => 'footer_current_page_item',
             ]);
             ?>
         </div>
@@ -92,7 +111,7 @@ AppAsset::register($this);
           <?= Menu::widget([
             'options' => ['class' => 'foo-news'],
             'items' => $this->context->myGetProductsItemsLinkArray(1), // Функция описана в контроллере AppController
-            'activeCssClass' => 'current_page_item',
+            'activeCssClass' => 'footer_current_page_item',
           ]);
           ?>
         </div>
@@ -103,7 +122,7 @@ AppAsset::register($this);
           <?= Menu::widget([
             'options' => ['class' => 'foo-news'],
             'items' => $this->context->myGetProductsItemsLinkArray(2), // Функция описана в контроллере AppController
-            'activeCssClass' => 'current_page_item',
+            'activeCssClass' => 'footer_current_page_item',
           ]);
           ?>
         </div>
@@ -128,14 +147,30 @@ AppAsset::register($this);
   <div class="wrap copy-holder">
     <div class="container">
       <div class="row">
-        <div class="span6 copyright text-center">
+        <div class="span4 copyright text-center">
             <span>
-              <a href="/">Pro-Stm</a>
+              <a href="/"><?= Yii::$app->name ?></a>
               &copy; <?php echo date('Y') ?>
               Dnepr
             </span>
         </div>
-        <div class="span6 copyright text-center">
+        <div class="span4 copyright text-center">
+            <span>
+              <?php
+              if(Yii::$app->user->isGuest)
+              {
+                echo 'Авторизация - ';
+                echo Html::a('Войти', ['/login']);
+              }
+              else
+              {
+                echo 'Вы авторизованы. Чтобы закрыть доступ, нажмите - ';
+                echo Html::a('Выйти', ['/logout']);
+              }
+              ?>
+            </span>
+        </div>
+        <div class="span4 copyright text-center">
             <span>
               Created by
               <a href="https://vk.com/yakunichkin">Dmitriy Yakunichkin</a>

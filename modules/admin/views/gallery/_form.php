@@ -19,8 +19,6 @@ use yii\widgets\ActiveForm;
     <br><br>
     
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?// $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
-    <?// Html::a($model->isNewRecord ? 'Добавить картинку' : 'Обновить картинку', $model->isNewRecord ? ['create-image'] : ['update-image', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
 
     <?php
 
@@ -28,8 +26,6 @@ use yii\widgets\ActiveForm;
     {
       $this->context->imagePreview($model);
       echo '<br><br>';
-      echo '<h5>Для того, чтобы заменить текущее название и выбрать другую картинку - нажмите кнопку:</h5>';
-      echo '<br>';
       echo Html::submitButton('Сохранить новое название и заменить картинку', ['class' => 'btn btn-info']);
     }     
     else

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\modules\admin\models\Index */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Indices', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Главная', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="index-view">

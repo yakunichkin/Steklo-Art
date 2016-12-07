@@ -12,22 +12,22 @@ use yii\filters\VerbFilter;
 /**
  * IndexController implements the CRUD actions for Index model.
  */
-class IndexController extends Controller
+class IndexController extends BehaviorsController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+//    /**
+//     * @inheritdoc
+//     */
+//    public function behaviors()
+//    {
+//        return [
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'delete' => ['POST'],
+//                ],
+//            ],
+//        ];
+//    }
 
     /**
      * Lists all Index models.

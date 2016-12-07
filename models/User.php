@@ -1,10 +1,8 @@
 <?php
 
 namespace app\models;
-use \yii\base\Object;
-use \yii\web\IdentityInterface;
 
-class User extends Object implements IdentityInterface
+class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
   public $id;
   public $username;
@@ -20,8 +18,14 @@ class User extends Object implements IdentityInterface
       'authKey' => 'test100key',
       'accessToken' => '100-token',
     ],
+    '101' => [
+      'id' => '101',
+      'username' => 'demo',
+      'password' => 'demo',
+      'authKey' => 'test101key',
+      'accessToken' => '101-token',
+    ],
   ];
-
 
   /**
    * @inheritdoc
@@ -48,7 +52,7 @@ class User extends Object implements IdentityInterface
   /**
    * Finds user by username
    *
-   * @param string $username
+   * @param  string      $username
    * @return static|null
    */
   public static function findByUsername($username)
@@ -89,7 +93,7 @@ class User extends Object implements IdentityInterface
   /**
    * Validates password
    *
-   * @param string $password password to validate
+   * @param  string  $password password to validate
    * @return boolean if password provided is valid for current user
    */
   public function validatePassword($password)

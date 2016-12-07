@@ -12,22 +12,22 @@ use yii\filters\VerbFilter;
 /**
  * ServicesController implements the CRUD actions for Services model.
  */
-class ServicesController extends Controller
+class ServicesController extends BehaviorsController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+//    /**
+//     * @inheritdoc
+//     */
+//    public function behaviors()
+//    {
+//        return [
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'delete' => ['POST'],
+//                ],
+//            ],
+//        ];
+//    }
 
     /**
      * Lists all Services models.

@@ -16,7 +16,7 @@ use app\modules\admin\models\UploadForm;
 /**
  * GalleryController implements the CRUD actions for Gallery model.
  */
-class GalleryController extends Controller
+class GalleryController extends BehaviorsController
 {
   public function imagePreview($model)
   {
@@ -39,20 +39,20 @@ class GalleryController extends Controller
     $model = new Gallery();
     return $model->find()->count('id');
   }
-  /**
-   * @inheritdoc
-   */
-  public function behaviors()
-  {
-    return [
-      'verbs' => [
-        'class' => VerbFilter::className(),
-        'actions' => [
-          'delete' => ['POST'],
-        ],
-      ],
-    ];
-  }
+//  /**
+//   * @inheritdoc
+//   */
+//  public function behaviors()
+//  {
+//    return [
+//      'verbs' => [
+//        'class' => VerbFilter::className(),
+//        'actions' => [
+//          'delete' => ['POST'],
+//        ],
+//      ],
+//    ];
+//  }
 
   /**
    * Lists all Gallery models.

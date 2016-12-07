@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\modules\admin\models\Index */
 
 $this->title = 'Создание новой позиции';
-$this->params['breadcrumbs'][] = ['label' => 'Indices', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Главная', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="index-create">

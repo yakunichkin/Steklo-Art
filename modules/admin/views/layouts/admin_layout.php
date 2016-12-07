@@ -1,7 +1,11 @@
 <?php
+/* @var $content string */
+
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\widgets\Menu;
+use yii\widgets\Breadcrumbs;
+
 AppAsset::register($this);
 ?>
 
@@ -35,7 +39,8 @@ AppAsset::register($this);
           'options' => ['class' => 'menu'],
           'encodeLabels' => false,
           'items' => [
-            ['label' => 'Панель Администратора', 'url' => ['/admin/']],
+            ['label' => '<span class="glyphicon glyphicon-tasks"></span> Редактор', 'url' => ['/admin/']],
+            ['label' => ' | '],
             ['label' => '<span class="glyphicon glyphicon-pencil"></span> Главная', 'url' => ['/admin/index/index']],
             ['label' => '<span class="glyphicon glyphicon-pencil"></span> Продукция', 'url' => ['/admin/products/index']],
             ['label' => '<span class="glyphicon glyphicon-pencil"></span> Услуги', 'url' => ['/admin/services/index']],
@@ -54,7 +59,18 @@ AppAsset::register($this);
   </header>
   <!--Конец Header-->
 
-  <?= $content ?>
+  <?php
+  echo Breadcrumbs::widget(
+    [
+    'homeLink' =>
+      [
+      'label' => 'Редактор',
+      'url' => ['/admin/']
+      ],
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]);
+  echo $content;
+  ?>
 
 </div>
 

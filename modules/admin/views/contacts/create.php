@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\modules\admin\models\Contacts */
 
 $this->title = 'Создание новой позиции';
-$this->params['breadcrumbs'][] = ['label' => 'Contacts', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Контакты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contacts-create">

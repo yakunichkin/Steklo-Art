@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\modules\admin\models\Price */
 
 $this->title = 'Создание новой позиции';
-$this->params['breadcrumbs'][] = ['label' => 'Prices', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Прайс-лист', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="price-create">

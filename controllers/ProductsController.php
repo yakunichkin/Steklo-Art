@@ -9,7 +9,7 @@ class ProductsController extends AppController
   public function actionIndex()
   {
     // Подключаемся к базе данных и определяем кол-во записей по id
-    $idCount = Products::find()->count('id');
+    $idCount = $this->myFullOfProductsCount();
     
     // Принимаем параметр $_GET['id'] и заносим в переменную.
     $id = \Yii::$app->request->get('id');

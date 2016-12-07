@@ -12,22 +12,22 @@ use yii\filters\VerbFilter;
 /**
  * ProductsController implements the CRUD actions for Products model.
  */
-class ProductsController extends Controller
+class ProductsController extends BehaviorsController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+//    /**
+//     * @inheritdoc
+//     */
+//    public function behaviors()
+//    {
+//        return [
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'delete' => ['POST'],
+//                ],
+//            ],
+//        ];
+//    }
 
     /**
      * Lists all Products models.

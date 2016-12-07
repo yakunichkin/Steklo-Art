@@ -726,6 +726,14 @@ input.comm-field:focus, #message2:focus, #comment:focus {outline: 0;
 {
   object-fit: cover;
 }
+.foo-news .footer_current_page_item a{
+  font-weight: bold !important;
+  color: #fff !important;
+}
+.checkbox label
+{
+  padding: 0;
+}
 /* - - - - - End my styles - - - - - */
 /**** END COMMENTS STYLES*****/
 

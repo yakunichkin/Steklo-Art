@@ -13,22 +13,22 @@ use app\controllers\AppController;
 /**
  * PriceController implements the CRUD actions for Price model.
  */
-class PriceController extends AppController
+class PriceController extends BehaviorsController
 {
-  /**
-   * @inheritdoc
-   */
-  public function behaviors()
-  {
-    return [
-      'verbs' => [
-        'class' => VerbFilter::className(),
-        'actions' => [
-          'delete' => ['POST'],
-        ],
-      ],
-    ];
-  }
+//  /**
+//   * @inheritdoc
+//   */
+//  public function behaviors()
+//  {
+//    return [
+//      'verbs' => [
+//        'class' => VerbFilter::className(),
+//        'actions' => [
+//          'delete' => ['POST'],
+//        ],
+//      ],
+//    ];
+//  }
 
   /**
    * Lists all Price models.

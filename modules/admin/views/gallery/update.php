@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model app\modules\admin\models\Gallery */
 
 $this->title = 'Редактирование: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Galleries', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Галерея', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="gallery-update">
 

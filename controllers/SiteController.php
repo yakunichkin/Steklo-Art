@@ -7,10 +7,10 @@ use app\models\Services;
 use app\models\Price;
 use app\models\Gallery;
 use app\models\Slider;
-//use Yii;
-//use yii\filters\AccessControl;
-//use yii\filters\VerbFilter;
-//use app\models\LoginForm;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
 
 class SiteController extends AppController
 {
@@ -18,44 +18,44 @@ class SiteController extends AppController
 /*
  * Behaviors
  */
-//  public function behaviors()
-//  {
-//    return [
-//      'access' => [
-//        'class' => AccessControl::className(),
-//        'only' => ['logout'],
-//        'rules' => [
-//          [
-//            'actions' => ['logout'],
-//            'allow' => true,
-//            'roles' => ['@'],
-//          ],
-//        ],
-//      ],
-//      'verbs' => [
-//        'class' => VerbFilter::className(),
-//        'actions' => [
-//          'logout' => ['post'],
-//        ],
-//      ],
-//    ];
-//  }
+  public function behaviors()
+  {
+    return [
+      'access' => [
+        'class' => AccessControl::className(),
+        'only' => ['logout'],
+        'rules' => [
+          [
+            'actions' => ['logout'],
+            'allow' => true,
+            'roles' => ['@'],
+          ],
+        ],
+      ],
+      'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+          'logout' => ['post', 'get'],
+        ],
+      ],
+    ];
+  }
 
 /*
  * Actions
  */
-//  public function actions()
-//  {
-//    return [
-//      'error' => [
-//        'class' => 'yii\web\ErrorAction',
-//      ],
-//      'captcha' => [
-//        'class' => 'yii\captcha\CaptchaAction',
-//        'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-//      ],
-//    ];
-//  }
+  public function actions()
+  {
+    return [
+      'error' => [
+        'class' => 'yii\web\ErrorAction',
+      ],
+      'captcha' => [
+        'class' => 'yii\captcha\CaptchaAction',
+        'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+      ],
+    ];
+  }
 
   /*
    * Контент, отображаемый на сайте записан в Базе данных "pro_stm" его можно менять в админке,
@@ -125,29 +125,31 @@ class SiteController extends AppController
     return $this->render('contact');
   }
 
-//  /*
-//   * Авторизация пользователей
-//   */
-//  public function actionLogin()
-//  {
-//    if (!Yii::$app->user->isGuest) {
-//      return $this->goHome();
-//    }
-//
-//    $model = new LoginForm();
-//    if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//      return $this->goBack();
-//    }
-//    return $this->render('login', compact('$model'));
-//  }
-//
-//  /*
-//   * Выйти из личного кабинета
-//   */
-//  public function actionLogout()
-//  {
-//    Yii::$app->user->logout();
-//
-//    return $this->goHome();
-//  }
+  /*
+   * Авторизация пользователей
+   */
+  public function actionLogin()
+  {
+    if (!\Yii::$app->user->isGuest) {
+      return \Yii::$app->response->redirect(['/admin']);
+    }
+
+    $model = new LoginForm();
+    if ($model->load(Yii::$app->request->post()) && $model->login()) {
+      return \Yii::$app->response->redirect(['/admin']);
+    }
+    return $this->render('login', [
+      'model' => $model,
+    ]);
+  }
+
+  /*
+   * Выйти из личного кабинета
+   */
+  public function actionLogout()
+  {
+    Yii::$app->user->logout();
+
+    return $this->goHome();
+  }
 }

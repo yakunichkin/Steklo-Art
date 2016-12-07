@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\modules\admin\models\Gallery */
 
 $this->title = 'Создание новой позиции';
-$this->params['breadcrumbs'][] = ['label' => 'Galleries', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Галерея', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gallery-create">

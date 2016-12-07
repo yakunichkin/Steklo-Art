@@ -1,6 +1,6 @@
 <?php
 use yii\widgets\Menu;
-$this->title = 'Администратор';
+$this->title = 'Редактор';
 ?>
 <h4 class="text-center">Редактирование всех данных на сайте:</h4>
 <br>

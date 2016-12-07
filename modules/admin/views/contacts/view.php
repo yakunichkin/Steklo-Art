@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $model app\modules\admin\models\Contacts */
 
 $this->title = 'Контакты';
-$this->params['breadcrumbs'][] = ['label' => 'Contacts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Просмотр';
 ?>
 <div class="contacts-view">
 

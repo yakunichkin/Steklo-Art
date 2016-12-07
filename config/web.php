@@ -4,7 +4,7 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
   'id' => 'basic',
-  'name' => 'ProSTM',
+  'name' => 'Steklo-Art',
   'basePath' => dirname(__DIR__),
   'bootstrap' => ['log'],
   'language' => 'ru_RU',
@@ -21,7 +21,7 @@ $config = [
     'request' => [
       // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
       'cookieValidationKey' => 'cVoBkLz00ozDYAKyDCRq4_itQwaEFIJ4',
-      'baseUrl' => '',  // Настройка, необходимая для того, чтобы не отображалась папка Web в адресной строке
+      'baseUrl' => '',  // Настройка, необходима для того, чтобы не отображалась папка Web в адресной строке
     ],
     'cache' => [
       'class' => 'yii\caching\FileCache',
@@ -56,15 +56,15 @@ $config = [
       'showScriptName' => false,
       'rules' =>
         [
-          'admin/index' => 'admin/index/index',
-          'admin/products' => 'admin/products/index',
-          'admin/services' => 'admin/services/index',
-          'admin/gallery' => 'admin/gallery/index',
-          'admin/price' => 'admin/price/index',
-          'admin/contacts' => 'admin/contacts/index',
+          'admin/<controller>' => 'admin/<controller>/index',
+//          'admin/index' => 'admin/index/index',
+//          'admin/products' => 'admin/products/index',
+//          'admin/services' => 'admin/services/index',
+//          'admin/gallery' => 'admin/gallery/index',
+//          'admin/price' => 'admin/price/index',
+//          'admin/contacts' => 'admin/contacts/index',
           'admin' => 'admin/default/index',
           '<action>' => 'site/<action>',
-          '/' => 'site/index',
           'products/<id\d+>' => 'products/index',
 
         ],
@@ -86,6 +86,7 @@ if (YII_ENV_DEV) {
   $config['modules']['gii'] = [
     'class' => 'yii\gii\Module',
   ];
+
 }
 
 return $config;
