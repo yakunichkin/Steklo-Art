@@ -19,6 +19,9 @@ AppAsset::register($this);
   <title><?= Html::encode($this->title) ?></title>
   <?php $this->head() ?>
   <link rel="shortcut icon" href="/images/favicon.ico">
+  <meta name="keywords" content="Стекло, перегородки, зеркала, душевые, витрины, закаленное стекло, кухонные фартуки">
+  <meta name="description" content="Прирезка и обработка стекла и зеркал по выгодной цене в Днепре и области">
+  <meta name="author" content="Дмитрий Якуничкин">
 </head>
 <body>
 

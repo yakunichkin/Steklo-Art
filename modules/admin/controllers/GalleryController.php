@@ -39,20 +39,6 @@ class GalleryController extends BehaviorsController
     $model = new Gallery();
     return $model->find()->count('id');
   }
-//  /**
-//   * @inheritdoc
-//   */
-//  public function behaviors()
-//  {
-//    return [
-//      'verbs' => [
-//        'class' => VerbFilter::className(),
-//        'actions' => [
-//          'delete' => ['POST'],
-//        ],
-//      ],
-//    ];
-//  }
 
   /**
    * Lists all Gallery models.

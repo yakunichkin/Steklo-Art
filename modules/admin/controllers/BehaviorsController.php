@@ -10,13 +10,10 @@ use yii\filters\VerbFilter;
 class BehaviorsController extends Controller
 {
 
-//  public function beforeAction($action)
-//  {
-//    if (\Yii::$app->user->isGuest)
-//    {
-//      return \Yii::$app->response->redirect(['/login']);
-//    }
-//  }
+  /*
+   * Родительский контроллер, который с помощью поведений Behaviors запрещающет доступ неавторизованным пользователям
+   */
+
   public function behaviors()
   {
     return
@@ -25,12 +22,6 @@ class BehaviorsController extends Controller
           [
             'class' => AccessControl::className(),
             'only' => ['index', 'create', 'view', 'update', 'image'],
-            /*
-            'denyCallback' => function($rule, $action)
-            {
-              throw new \Exception('Нет доступа.');   // В случае запрета доступа, вызывается исключение
-            },
-            */
             'rules' =>
               [
                 [

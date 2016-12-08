@@ -19,9 +19,8 @@ $config = [
   ],
   'components' => [
     'request' => [
-      // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
       'cookieValidationKey' => 'cVoBkLz00ozDYAKyDCRq4_itQwaEFIJ4',
-      'baseUrl' => '',  // Настройка, необходима для того, чтобы не отображалась папка Web в адресной строке
+      'baseUrl' => '',  // Убирает "/web/" в адресной строке
     ],
     'cache' => [
       'class' => 'yii\caching\FileCache',
@@ -35,9 +34,6 @@ $config = [
     ],
     'mailer' => [
       'class' => 'yii\swiftmailer\Mailer',
-      // send all mails to a file by default. You have to set
-      // 'useFileTransport' to false and configure a transport
-      // for the mailer to send real emails.
       'useFileTransport' => true,
     ],
     'log' => [
@@ -57,12 +53,6 @@ $config = [
       'rules' =>
         [
           'admin/<controller>' => 'admin/<controller>/index',
-//          'admin/index' => 'admin/index/index',
-//          'admin/products' => 'admin/products/index',
-//          'admin/services' => 'admin/services/index',
-//          'admin/gallery' => 'admin/gallery/index',
-//          'admin/price' => 'admin/price/index',
-//          'admin/contacts' => 'admin/contacts/index',
           'admin' => 'admin/default/index',
           '<action>' => 'site/<action>',
           'products/<id\d+>' => 'products/index',
@@ -75,7 +65,6 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-  // configuration adjustments for 'dev' environment
 
   $config['bootstrap'][] = 'debug';
   $config['modules']['debug'] = [

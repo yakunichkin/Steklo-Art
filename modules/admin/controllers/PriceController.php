@@ -15,20 +15,6 @@ use app\controllers\AppController;
  */
 class PriceController extends BehaviorsController
 {
-//  /**
-//   * @inheritdoc
-//   */
-//  public function behaviors()
-//  {
-//    return [
-//      'verbs' => [
-//        'class' => VerbFilter::className(),
-//        'actions' => [
-//          'delete' => ['POST'],
-//        ],
-//      ],
-//    ];
-//  }
 
   /**
    * Lists all Price models.

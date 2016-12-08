@@ -14,20 +14,6 @@ use yii\filters\VerbFilter;
  */
 class IndexController extends BehaviorsController
 {
-//    /**
-//     * @inheritdoc
-//     */
-//    public function behaviors()
-//    {
-//        return [
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'delete' => ['POST'],
-//                ],
-//            ],
-//        ];
-//    }
 
     /**
      * Lists all Index models.
