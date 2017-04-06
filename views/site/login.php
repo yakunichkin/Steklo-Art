@@ -11,14 +11,15 @@ $this->title = 'Авторизация';
 ?>
   <h1><?= Html::encode($this->title) ?></h1>
   <br>
-  <p>Пожалуйста, заполните следующие поля для того, чтобы вы могли войти в панель Редактора:</p>
-  <?php $form = ActiveForm::begin(); ?>
+  <p>Пожалуйста, заполните поля для входа в панель Редактора:</p>
+  <div class="row">
+    <div class="span3">
+    <?php $form = ActiveForm::begin(); ?>
+      <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+      <?= $form->field($model, 'password')->passwordInput() ?>
+      <?//= $form->field($model, 'rememberMe')->checkbox() ?>
 
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
-    <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-    <?= Html::submitButton('Войти в Панель для Редактирования', ['class' => 'btn btn-primary']) ?>
-
-  <?php ActiveForm::end(); ?>
-
+      <?= Html::submitButton('Авторизоваться', ['class' => 'btn btn-primary']) ?>
+    <?php ActiveForm::end(); ?>
+    </div>
+  </div>
