@@ -56,7 +56,6 @@ $config = [
           'admin' => 'admin/default/index',
           '<action>' => 'site/<action>',
           'products/<id\d+>' => 'products/index',
-
         ],
     ],
 

@@ -27,3 +27,8 @@ phpunit.phar
 /phpunit.xml
 /DB/
 DB/
+/commands/
+/web/index-test.php
+/runtime/
+/tests/
+/mail/
