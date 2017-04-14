@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = 'Просмотр';
       'email:email',
       'skype',
     ],
-    //'buttons' => ['delete']
   ]) ?>
 
 </div>

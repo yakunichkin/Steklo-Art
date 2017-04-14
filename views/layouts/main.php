@@ -5,6 +5,8 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\widgets\Menu;
+use app\controllers\AppController;
+
 AppAsset::register($this);
 ?>
 
@@ -42,7 +44,7 @@ AppAsset::register($this);
       $menuItems[] = ['label' => 'Продукция',
           'url' => ['/products/index'],
           'options'=>['class'=>'sub-menu'],
-          'items' => $this->context->myGetProductsItemsLinkArray(), // Функция описана в контроллере AppController
+          'items' => AppController::myGetProductsItemsLinkArray(), // Функция описана в контроллере AppController
         ];
       $menuItems[] = ['label' => 'Услуги', 'url' => ['/site/services']];
       $menuItems[] = ['label' => 'Галерея', 'url' => ['/site/gallery']];
@@ -80,7 +82,6 @@ AppAsset::register($this);
         ?>
       </nav>
     </div>
-    <!--end container-->
   </header>
   <!--Конец Header-->
 
@@ -107,42 +108,36 @@ AppAsset::register($this);
             ]);
             ?>
         </div>
-        <!--end span3-->
 
         <div class="span3 foo-block">
           <h3>Продукция</h3>
           <?= Menu::widget([
             'options' => ['class' => 'foo-news'],
-            'items' => $this->context->myGetProductsItemsLinkArray(1), // Функция описана в контроллере AppController
+            'items' => AppController::myGetProductsItemsLinkArray(1), // Функция описана в контроллере AppController
             'activeCssClass' => 'footer_current_page_item',
           ]);
           ?>
         </div>
-        <!--end span3-->
 
         <div class="span3 foo-block">
           <h3>Продукция</h3>
           <?= Menu::widget([
             'options' => ['class' => 'foo-news'],
-            'items' => $this->context->myGetProductsItemsLinkArray(2), // Функция описана в контроллере AppController
+            'items' => AppController::myGetProductsItemsLinkArray(2), // Функция описана в контроллере AppController
             'activeCssClass' => 'footer_current_page_item',
           ]);
           ?>
         </div>
-        <!--end span3-->
         <div class="span3 foo-block">
           <h3>Контакты</h3>
           <ul class="foo-faq">
 
-            <?php $this->context->myGetContacts(); // Функция описана в контроллере AppController ?>
+            <?php AppController::myGetContacts(); // Функция описана в контроллере AppController ?>
             
           </ul>
         </div>
-        <!--end span3-->
       </div>
-      <!--end row-->
     </div>
-    <!--end container-->
   </footer>
   <!--Конец Footer-->
 
@@ -153,8 +148,18 @@ AppAsset::register($this);
         <div class="span4 copyright text-center">
             <span>
               <a href="/"><?= Yii::$app->name ?></a>
-              &copy; <?php echo date('Y') ?>
+              &copy; 2015 - <?= date('Y') ?>
               Dnepr
+            </span>
+        </div>
+        <div class="span4 copyright text-center">
+            <span>
+              <?php
+              if(!Yii::$app->user->isGuest)
+              {
+                echo 'Авторизация прошла успешно';
+              }
+              ?>
             </span>
         </div>
         <div class="span4 copyright text-center">
@@ -167,23 +172,14 @@ AppAsset::register($this);
               }
               else
               {
-                echo 'Вы авторизованы. Чтобы закрыть доступ, нажмите - ';
+                echo 'Чтобы закрыть доступ, нажмите - ';
                 echo Html::a('Выйти', ['/logout']);
               }
               ?>
             </span>
         </div>
-        <div class="span4 copyright text-center">
-            <span>
-              Created by
-              <a href="https://vk.com/yakunichkin">Dmitriy Yakunichkin</a>
-            </span>
-        </div>
-        <!--end copyright-->
       </div>
-      <!--end row-->
     </div>
-    <!--end container-->
   </div>
   <!--Конец Copyright-->
 

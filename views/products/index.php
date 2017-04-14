@@ -1,7 +1,11 @@
 <?php
-/* @var $oneProduct object */
-use yii\helpers\Url;
 use yii\widgets\Menu;
+use app\controllers\AppController;
+use app\models\Faq;
+
+/* @var $oneProduct object */
+/* @var $product_id integer */
+/* @var $faqTriggers array */
 
 $this->title = $oneProduct->name;
 ?>
@@ -13,11 +17,10 @@ $this->title = $oneProduct->name;
         <h2><?= $oneProduct->name ?></h2>
       </div>
     </div>
-    <!--end row-->
   </div>
-  <!--end container-->
 </div>
-<!--end wrap-->
+
+<!--Начало Продукция-->
 <div class="wrap margin-block">
   <div class="container">
     <div class="row">
@@ -44,24 +47,41 @@ $this->title = $oneProduct->name;
                 <div class="sidebar-archive">
 
                   <?= Menu::widget([
-                    'items' => $this->context->myGetProductsItemsLinkArray(), // Функция описана в контроллере AppController
+                    'items' => AppController::myGetProductsItemsLinkArray(), // Функция описана в контроллере AppController
                     'activeCssClass' => 'current_sidebar_item',
                   ]);
                   ?>
                   
                 </div>
               </li>
-              <!--end archive-->
             </ul>
-                        
           </aside>
+
           <br>
-          <div class="span12  faq-questions block-3col">
-            <?php if(!empty($oneProduct->faq_trigger)){ echo $oneProduct->faq_trigger; } ?>
-          </div>
+
+          <?php if(!empty($faqTriggers)): ?>
+            <?php $i = 1; ?>
+            <div class="span12 faq-questions block-3col">
+
+              <?php foreach ($faqTriggers as $oneFaq): ?>
+                <h4 class="trigger">
+                  <a href="#q<?=$i?>">
+                    <?= $oneFaq->title ?>
+                  </a>
+                </h4>
+                <div id="q<?=$i?>" class="toggle_container">
+                  <img src="../images/products/prod-img-<?=$product_id?>-mini-<?=$i?>.jpg">
+                  <?= $oneFaq->text ?>
+                </div>
+                <?php $i++; ?>
+              <?php endforeach; ?>
+
+            </div>
+          <?php endif; ?>
 
         </div>
       </div>
     </div>
   </div>
 </div>
+<!--Конец Продукция-->

@@ -15,24 +15,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <br>
     <p>
         <?= Html::a('Вернуться назад', ['/admin/'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Добавить новую позицию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <br>
     <?= GridView::widget([
       'dataProvider' => $dataProvider,
       'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
 
         'title',
-        'text:ntext',
+        'text:html',
 
-        ['class' => 'yii\grid\ActionColumn'],
+        ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
       ],
     ]); ?>
 </div>
 <br>
 <p>
     <?= Html::a('Вернуться назад', ['/admin/'], ['class' => 'btn btn-primary']) ?>
-    <?= Html::a('Добавить новую позицию', ['create'], ['class' => 'btn btn-success']) ?>
 </p>
 <br>

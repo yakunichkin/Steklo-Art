@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use mihaildev\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Index */
@@ -19,7 +20,16 @@ use yii\widgets\ActiveForm;
     <br><br>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
+    <?//= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'text')->widget(CKEditor::className(),
+      [
+        'editorOptions' =>
+          [
+            'preset' => 'standart',
+            'inline' => false,
+          ],
+      ]);
+    ?>
   </div>
 
     <?php ActiveForm::end(); ?>

@@ -12,7 +12,7 @@ $this->title = 'Авторизация';
   <h1><?= Html::encode($this->title) ?></h1>
   <br>
   <p>Пожалуйста, заполните поля для входа в панель Редактора:</p>
-  <div class="row">
+  <div class="row" id="admin-panel-login">
     <div class="span3">
     <?php $form = ActiveForm::begin(); ?>
       <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>

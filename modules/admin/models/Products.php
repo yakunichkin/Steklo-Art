@@ -2,7 +2,8 @@
 
 namespace app\modules\admin\models;
 
-use Yii;
+use yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "products".
@@ -14,9 +15,8 @@ use Yii;
  * @property string $img_1
  * @property string $img_2
  * @property string $img_3
- * @property string $faq_trigger
  */
-class Products extends \yii\db\ActiveRecord
+class Products extends ActiveRecord
 {
   /**
    * @inheritdoc
@@ -33,7 +33,7 @@ class Products extends \yii\db\ActiveRecord
   {
     return [
       [['name', 'text', 'main_img'], 'required'],
-      [['text', 'faq_trigger'], 'string'],
+      [['text'], 'string'],
       [['name'], 'string', 'max' => 155],
       [['main_img', 'img_1', 'img_2', 'img_3'], 'string', 'max' => 50],
       [['name', 'text', 'main_img', 'img_1', 'img_2', 'img_3'], 'filter', 'filter'=>'trim']
@@ -50,11 +50,16 @@ class Products extends \yii\db\ActiveRecord
       'id' => 'Номер',
       'name' => 'Название',
       'text' => 'Текст',
-      'main_img' => 'Картинка возле описания',
-      'img_1' => 'Картинка внизу 1',
-      'img_2' => 'Картинка внизу 2',
-      'img_3' => 'Картинка внизу 3',
-      'faq_trigger' => 'Выпадающие меню',
+      'main_img' => 'Основное фото',
+      'img_1' => 'Доп. фото 1',
+      'img_2' => 'Доп. фото 2',
+      'img_3' => 'Доп. фото 3',
     ];
+  }
+
+  static public function getProductName($id)
+  {
+   $product = self::find()->where('id = '.$id)->one();
+   return $product->name;
   }
 }

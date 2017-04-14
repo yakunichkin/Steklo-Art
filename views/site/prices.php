@@ -9,25 +9,22 @@ $this->title = 'Прайс-лист';
         <h2>Прайс-лист</h2>
       </div>
     </div>
-    <!--Конец row--> </div>
-  <!--Конец container-->
+  </div>
 </div>
-<!--Конец wrap-->
 
+<!--Начало Прайс-лист-->
 <div class="wrap margin-block">
   <div class="container">
-
     <div class="row main-table">
-
       <div class="span12 table-column">
-        <h4 class="pt-title">
+        <div class="pt-title">
           <div class="pull-left pt-title-50">
-            <span class="pull-left">Наименование</span>
+            <h4><span class="pull-left">Наименование</span></h4>
           </div>
           <div class="pull-left pt-title-50">
-            <span class="pull-right">Цена</span>
+            <h4><span class="pull-right">Цена</span></h4>
           </div>
-        </h4>
+        </div>
         <br>
         <ul class="pt-features">
           <?php if (!empty($allPrices)): ?>
@@ -40,10 +37,7 @@ $this->title = 'Прайс-лист';
           <?php endif;?>
         </ul>
       </div>
-      <!--Конец table-col -->
     </div>
-    <!--Конец row-->
   </div>
-  <!--Конец container-->
 </div>
-<!--Конец wrap-->
+<!--Конец Прайс-лист-->

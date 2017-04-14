@@ -15,7 +15,6 @@ use \yii\db\ActiveRecord;
  * @property string $img_1
  * @property string $img_2
  * @property string $img_3
- * @property string $faq_trigger
  */
 class Products extends ActiveRecord
 {
@@ -37,7 +36,6 @@ class Products extends ActiveRecord
       [['text'], 'string'],
       [['name'], 'string', 'max' => 155],
       [['main_img', 'img_1', 'img_2', 'img_3'], 'string', 'max' => 50],
-      [['faq_trigger'], 'string'],
     ];
   }
 
@@ -54,7 +52,6 @@ class Products extends ActiveRecord
       'img_1' => 'Img 1',
       'img_2' => 'Img 2',
       'img_3' => 'Img 3',
-      'faq_trigger' => 'Trigger',
     ];
   }
 }

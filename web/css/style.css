@@ -707,13 +707,6 @@ input.comm-field:focus, #message2:focus, #comment:focus {outline: 0;
 .admin {
   border-bottom: 1px dashed #999;
 }
-.contacts-index .grid-view .glyphicon-trash,
-.services-index .grid-view .glyphicon-trash,
-.index-index .grid-view .glyphicon-trash
-{
-  display: none;
-}
-
 .admin-index-preview li{
   margin: 0px 5px 20px 5px;
   display: inline-block !important;
@@ -734,11 +727,11 @@ input.comm-field:focus, #message2:focus, #comment:focus {outline: 0;
 {
   padding: 0;
 }
-.help-block
+#admin-panel-login .help-block
 {
   margin-bottom: 5px !important;
 }
-.form-group
+#admin-panel-login .form-group
 {
   margin-bottom: 5px !important;
 }

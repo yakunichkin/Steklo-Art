@@ -8,7 +8,7 @@ use app\models\Contacts;
 class AppController extends Controller
 {
   // Метод, возвращает количество записей в таблице Products
-  public function myFullOfProductsCount()
+  static public function myFullOfProductsCount()
   {
     return Products::find()->count('id');
   }
@@ -24,10 +24,10 @@ class AppController extends Controller
    * @fromCounter и @toCounter - начальное и конечное значения для цикла, который сформирует массив из ссылок
    * @productsItems - основной массив, который будет передан в главное меню сайта, меню тега <aside> и в нижнее меню Footer
    */
-  public function myGetProductsItemsLinkArray($check = null)
+  static public function myGetProductsItemsLinkArray($check = null)
   {
     // Переменная, содаржащее число всех записей в таблице Products
-    $fullOfProductsCount = $this->myFullOfProductsCount();
+    $fullOfProductsCount = self::myFullOfProductsCount();
     // Переменная, содержащая половину количества записей для разделения пополам левого и правого меню футера
     $halfOfProductsCount = (int)ceil($fullOfProductsCount / 2);
 
@@ -81,7 +81,7 @@ class AppController extends Controller
    *
    * @allContacts - объект, полученный из базы данных со всеми значениями таблицы
    */
-  public function myGetContacts()
+  static public function myGetContacts()
   {
     $allContacts = Contacts::find()->select('address, phone_1, phone_2, phone_3, email, skype')->all();
 
@@ -101,7 +101,7 @@ class AppController extends Controller
    * Разделитель в виде синей полосы по центру страницы
    * По умолчанию этот метод имеет ширину 65% и высоту 3px
    */
-  public function myIndexDivider($width = 65, $height = 3)
+  static public function myIndexDivider($width = 65, $height = 3)
   {
     echo
       '<div style="width: ' . $width . '%; height: ' . $height . 'px; margin:35px auto 0; background-color: #0bb1e5;"></div>';
