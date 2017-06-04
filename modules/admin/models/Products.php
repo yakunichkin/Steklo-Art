@@ -4,6 +4,9 @@ namespace app\modules\admin\models;
 
 use yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
+use yii\helpers\Html;
+use app\controllers\AppController;
 
 /**
  * This is the model class for table "products".
@@ -18,6 +21,11 @@ use yii\db\ActiveRecord;
  */
 class Products extends ActiveRecord
 {
+  const NUMBER_MAIN = 1;
+  const NUMBER_1 = 2;
+  const NUMBER_2 = 3;
+  const NUMBER_3 = 4;
+
   /**
    * @inheritdoc
    */
@@ -32,7 +40,7 @@ class Products extends ActiveRecord
   public function rules()
   {
     return [
-      [['name', 'text', 'main_img'], 'required'],
+      [['name', 'text'], 'required'],
       [['text'], 'string'],
       [['name'], 'string', 'max' => 155],
       [['main_img', 'img_1', 'img_2', 'img_3'], 'string', 'max' => 50],
@@ -61,5 +69,45 @@ class Products extends ActiveRecord
   {
    $product = self::find()->where('id = '.$id)->one();
    return $product->name;
+  }
+
+  public function imageProductPreview($buttonCheck = null, $number, $width = 150, $height = 84, $alt = "image")
+  {
+    switch ($number) {
+      case self::NUMBER_MAIN:
+        $image = $this->main_img;
+        break;
+      case self::NUMBER_1:
+        $image = $this->img_1;
+        break;
+      case self::NUMBER_2:
+        $image = $this->img_2;
+        break;
+      case self::NUMBER_3:
+        $image = $this->img_3;
+        break;
+      default:
+        $image = null;
+        break;
+    }
+
+    $returnImage = 'no-image.jpg';
+    $buttonName = 'Добавить';
+    $buttonClass = 'btn-success';
+
+    if ($image) {
+      if (file_exists('./images/products/' . $image)) {
+        $returnImage = 'products/' . $image;
+        $buttonName = 'Заменить';
+        $buttonClass = 'btn-info';
+      }
+    }
+    $url = Url::to(['/admin/products/image', 'id' => $this->id, 'number' => $number]);
+
+    $preview = '<img src="/images/' . $returnImage . '" width="'.$width.'" height="'.$height.'" alt="'.$alt.'">';
+    if ($buttonCheck !== null){
+      $preview .= '&nbsp;&nbsp;<a href="' . $url . '" class="btn ' . $buttonClass . '">' . $buttonName . '</a>';
+    }
+    return $preview;
   }
 }

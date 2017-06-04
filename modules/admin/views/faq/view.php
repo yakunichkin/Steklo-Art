@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\admin\models\Faq;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\modules\admin\models\Products;
@@ -22,7 +23,7 @@ $this->params['breadcrumbs'][] = 'Выпадающий блок: '.$this->title;
   <h2><?= Html::encode($this->title) ?></h2>
   <br>
   <p>
-    <?= Html::a('Вернуться назад без сохранения', ['/admin/products/update', 'id' => $model->product_id], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Назад', ['/admin/products/update', 'id' => $model->product_id], ['class' => 'btn btn-primary']) ?>
     <?= Html::a('Редактировать', ['update', 'id' => $model->id, 'product_id' => $model->product_id], ['class' => 'btn btn-success']) ?>
     <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
       'class' => 'btn btn-danger',
@@ -42,9 +43,14 @@ $this->params['breadcrumbs'][] = 'Выпадающий блок: '.$this->title;
         'format' => 'html',
         'value' => function($data)
         {
-          $id = $data->id;
-          $product_id = $data->product_id;
-          return '<img src="../../images/products/prod-img-'.$product_id.'-mini-'.$id.'.jpg" width="150">';
+          if ($data->image){
+            $returnImage = '<img src="/images/faq/'.$data->image.'" width="150" height="84">&nbsp;&nbsp;';
+            $returnImage .= Html::a('Заменить', ['/admin/faq/image', 'id' => $data->id, 'product_id' => $data->product_id], ['class' => 'btn btn-info']);
+          } else {
+            $returnImage  = '<img src="/images/no-image.jpg" width="150" height="84">&nbsp;&nbsp;';
+            $returnImage .= Html::a('Добавить', ['/admin/faq/image', 'id' => $data->id, 'product_id' => $data->product_id], ['class' => 'btn btn-success']);
+          }
+          return $returnImage;
         }
       ],
       [

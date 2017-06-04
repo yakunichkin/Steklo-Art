@@ -715,7 +715,7 @@ input.comm-field:focus, #message2:focus, #comment:focus {outline: 0;
   box-shadow: 2px 2px 4px rgba(0,0,0, 0.4) !important;
 }
 
-.gal-img img, .gallery-view img
+.gal-img img, .gallery-view img, .container .row .product img, .detail-view img, .products-form img, .faq-form img
 {
   object-fit: cover;
 }
@@ -734,6 +734,10 @@ input.comm-field:focus, #message2:focus, #comment:focus {outline: 0;
 #admin-panel-login .form-group
 {
   margin-bottom: 5px !important;
+}
+.toggle_container
+{
+  overflow: hidden !important;
 }
 /* - - - - - End my styles - - - - - */
 /**** END COMMENTS STYLES*****/

@@ -1,13 +1,20 @@
 <?php
+use app\modules\admin\models\UploadForm;
 use yii\widgets\Menu;
 use app\controllers\AppController;
-use app\models\Faq;
+use app\modules\admin\models\Faq;
+use app\modules\admin\models\Products;
 
 /* @var $oneProduct object */
 /* @var $product_id integer */
 /* @var $faqTriggers array */
 
 $this->title = $oneProduct->name;
+//$img_1 = $oneProduct->img_1;
+//$img_2 = $oneProduct->img_2;
+//$img_3 = $oneProduct->img_3;
+$path = '../images/products/';
+//$noImage = '../images/no-image.jpg';
 ?>
 
 <div class="wrap">
@@ -28,14 +35,12 @@ $this->title = $oneProduct->name;
         <div class="row">
 
           <div class="span9 product">
-            <img src="../images/products/<?= $oneProduct->main_img ?>">
+            <?php if($oneProduct->main_img) echo '<img src="'. AppController::ifImageExists($oneProduct->main_img, UploadForm::TYPE_PRODUCT) .'">' ; ?>
             <?= $oneProduct->text ?>
             <br>
-            <?php
-              if (!empty($oneProduct->img_1)){ echo '<img src="../images/products/' . $oneProduct->img_1 . '">'; }
-              if (!empty($oneProduct->img_2)){ echo '<img src="../images/products/' . $oneProduct->img_2 . '">'; }
-              if (!empty($oneProduct->img_3)){ echo '<img src="../images/products/' . $oneProduct->img_3 . '">'; }
-            ?>
+            <?php if($oneProduct->img_1) echo '<img src="'. AppController::ifImageExists($oneProduct->img_1, UploadForm::TYPE_PRODUCT) .'">' ; ?>
+            <?php if($oneProduct->img_2) echo '<img src="'. AppController::ifImageExists($oneProduct->img_2, UploadForm::TYPE_PRODUCT) .'">' ; ?>
+            <?php if($oneProduct->img_3) echo '<img src="'. AppController::ifImageExists($oneProduct->img_3, UploadForm::TYPE_PRODUCT) .'">' ; ?>
           </div>
 
           <aside class="span3">
@@ -70,7 +75,7 @@ $this->title = $oneProduct->name;
                   </a>
                 </h4>
                 <div id="q<?=$i?>" class="toggle_container">
-                  <img src="../images/products/prod-img-<?=$product_id?>-mini-<?=$i?>.jpg">
+                  <?= '<img src="'. AppController::ifImageExists($oneFaq->image, UploadForm::TYPE_FAQ) .'">'; ?>
                   <?= $oneFaq->text ?>
                 </div>
                 <?php $i++; ?>

@@ -20,7 +20,6 @@ use mihaildev\ckeditor\CKEditor;
     <br><br>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?//= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'text')->widget(CKEditor::className(),
       [
         'editorOptions' =>

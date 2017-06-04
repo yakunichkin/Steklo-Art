@@ -1,12 +1,15 @@
 <?php
 namespace app\controllers;
 
+use app\modules\admin\models\UploadForm;
 use yii\web\Controller;
 use app\models\Products;
 use app\models\Contacts;
 
 class AppController extends Controller
 {
+  
+  
   // Метод, возвращает количество записей в таблице Products
   static public function myFullOfProductsCount()
   {
@@ -105,5 +108,22 @@ class AppController extends Controller
   {
     echo
       '<div style="width: ' . $width . '%; height: ' . $height . 'px; margin:35px auto 0; background-color: #0bb1e5;"></div>';
+  }
+
+  static public function ifImageExists($image, $folder)
+  {
+    $path = '/images/'. $folder .'/';
+    $returnPath = '/images/no-image.jpg';
+
+    if ($image)
+    {
+      if (file_exists('./images/'. $folder .'/'.$image))
+      {
+        $returnPath = $path . $image;
+      }
+    } elseif ($folder === UploadForm::TYPE_PRODUCT) {
+      return null;
+    }
+    return $returnPath;
   }
 }

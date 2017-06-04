@@ -13,7 +13,6 @@ use \yii\db\ActiveRecord;
  */
 class Gallery extends ActiveRecord
 {
-  public $imageFile;
   /**
    * @inheritdoc
    */
@@ -41,7 +40,7 @@ class Gallery extends ActiveRecord
   {
     return [
       'id' => 'ID',
-      'title' => 'Название',
+      'title' => 'Заголовок',
       'image' => 'Изображение',
     ];
   }

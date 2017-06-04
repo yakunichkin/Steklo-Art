@@ -3,6 +3,8 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "gallery".
@@ -11,7 +13,7 @@ use Yii;
  * @property string $title
  * @property string $image
  */
-class Gallery extends \yii\db\ActiveRecord
+class Gallery extends ActiveRecord
 {
   /**
    * @inheritdoc
@@ -42,8 +44,26 @@ class Gallery extends \yii\db\ActiveRecord
   {
     return [
       'id' => 'Номер',
-      'title' => 'Название',
+      'title' => 'Заголовок',
       'image' => 'Изображение',
     ];
+  }
+
+  public function imageGalleryPreview($width = 240, $height = 135, $alt = "image")
+  {
+    $text = 'Изображение отсутствует';
+    $returnImage = 'no-image.jpg';
+
+    if ($this->image) {
+      if (file_exists('./images/gallery/'.$this->image)) {
+        $text = 'Предпросмотр изображения:';
+        $returnImage = 'gallery/'.$this->image;
+      }
+    }
+
+    $preview  = '<h4>'. $text .'</h4><br>';
+    $preview .= '<img src="/images/'. $returnImage .'" width="'.$width.'" height="'.$height.'" alt="'. $alt .'">';
+
+    return $preview;
   }
 }

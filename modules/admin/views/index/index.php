@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <br>
     <p>
-        <?= Html::a('Вернуться назад', ['/admin/'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Назад', ['/admin/'], ['class' => 'btn btn-primary']) ?>
     </p>
     <br>
     <?= GridView::widget([
@@ -30,6 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <br>
 <p>
-    <?= Html::a('Вернуться назад', ['/admin/'], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Назад', ['/admin/'], ['class' => 'btn btn-primary']) ?>
 </p>
 <br>

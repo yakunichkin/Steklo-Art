@@ -1,4 +1,6 @@
 <?php
+use app\controllers\AppController;
+use app\modules\admin\models\UploadForm;
 $this->title = 'Галерея';
 ?>
 
@@ -18,12 +20,11 @@ $this->title = 'Галерея';
     <div class="row">
 
       <?php if (!empty($allGallery)): ?>
-        <?php foreach ($allGallery as $gallery):?>
-          <?php $image = !$gallery->image ? 'no-image.jpg' : $gallery->image; //Если нет картинки - поставится пустая заглушка ?>
+        <?php foreach($allGallery as $gallery):?>
           <div class="span4 block-3col">
             <div class="gal-img">
-              <img src="images/gallery/<?= $image ?>" alt="<?=$gallery->title?>" width="370" height="208"/>
-              <a class="lightbox" href="images/gallery/<?= $image ?>" data-rel="prettyPhoto[gallery]" title="<?=$gallery->title?>">
+              <img src="<?= AppController::ifImageExists($gallery->image, UploadForm::TYPE_GALLERY) ?>" alt="<?=$gallery->title?>" width="370" height="208"/>
+              <a class="lightbox" href="<?= AppController::ifImageExists($gallery->image, UploadForm::TYPE_GALLERY); ?>" data-rel="prettyPhoto[gallery]" title="<?=$gallery->title?>">
                 <div class="gal-more">
                   <div class="mask-elem">
                     <span class="gal-btn-2">Открыть</span>

@@ -60,6 +60,16 @@ $config = [
     ],
 
   ],
+  'controllerMap' => [
+    'elfinder' => [
+      'class' => 'mihaildev\elfinder\PathController',
+      'access' => ['@'],
+      'root' => [
+        'path' => '/images/',
+        'name' => 'Temp'
+      ],
+    ]
+  ],
   'params' => $params,
 ];
 

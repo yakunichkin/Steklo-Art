@@ -9,6 +9,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use app\modules\admin\models\UploadForm;
 
 /**
  * FaqController implements the CRUD actions for Faq model.
@@ -46,6 +48,26 @@ class FaqController extends Controller
   }
 
   /**
+   * Creates a new Faq model.
+   * If creation is successful, the browser will be redirected to the 'view' page.
+   * @return mixed
+   * @var $product_id integer
+   */
+  public function actionCreate($product_id)
+  {
+    $model = new Faq();
+
+    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      return $this->redirect(['image', 'id' => $model->id, 'product_id' => $product_id]);
+    } else {
+      return $this->render('create', [
+        'model' => $model,
+        'product_id' => $product_id,
+      ]);
+    }
+  }
+
+  /**
    * Displays a single Faq model.
    * @param integer $id
    * @return mixed
@@ -58,27 +80,6 @@ class FaqController extends Controller
   }
 
   /**
-   * Creates a new Faq model.
-   * If creation is successful, the browser will be redirected to the 'view' page.
-   * @return mixed
-   */
-  public function actionCreate()
-  {
-    $requestId = Yii::$app->request->get('product_id') ? Yii::$app->request->get('product_id') : null;
-
-    $model = new Faq();
-
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-      return $this->redirect(['view', 'id' => $model->id]);
-    } else {
-      return $this->render('create', [
-        'model' => $model,
-        'requestId' => $requestId,
-      ]);
-    }
-  }
-
-  /**
    * Updates an existing Faq model.
    * If update is successful, the browser will be redirected to the 'view' page.
    * @param integer $id
@@ -86,8 +87,6 @@ class FaqController extends Controller
    */
   public function actionUpdate($id)
   {
-    $requestId = Yii::$app->request->get('product_id') ? Yii::$app->request->get('product_id') : null;
-
     $model = $this->findModel($id);
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -95,8 +94,31 @@ class FaqController extends Controller
     } else {
       return $this->render('update', [
         'model' => $model,
-        'requestId' => $requestId,
       ]);
+    }
+  }
+
+  public function actionImage($id, $product_id)
+  {
+    $file = new UploadForm();
+    $model = $this->findModel($id);
+
+    $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
+    if ($model->load(Yii::$app->request->post())) {
+      if ($file->upload($product_id, $id, $file::TYPE_FAQ)) {
+        $model->image = $file->getNameImage($product_id, $id, $file::TYPE_FAQ);
+        $model->save();
+        return $this->redirect(['view', 'id' => $id]);
+      }
+      else
+      {
+        $model->image = null;
+        $model->save();
+        return $this->redirect(['update', 'id' => $id, 'product_id' => $product_id]);
+      }
+    }
+    else {
+      return $this->render('image', compact('file', 'model', 'product_id'));
     }
   }
 
@@ -104,16 +126,16 @@ class FaqController extends Controller
    * Deletes an existing Faq model.
    * If deletion is successful, the browser will be redirected to the 'index' page.
    * @param integer $id
+   * @param integer $product_id
    * @return mixed
    */
-  public function actionDelete($id)
+  public function actionDelete($id, $product_id)
   {
     $this->findModel($id)->delete();
 
-    $requestId = Yii::$app->request->get('product_id');
-    if ($requestId)
+    if ($product_id)
     {
-      return $this->redirect(['/admin/products/update', 'id' => $requestId]);
+      return $this->redirect(['/admin/products/update', 'id' => $product_id]);
     } else {
       return $this->redirect(['/admin/products/']);
     }

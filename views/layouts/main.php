@@ -147,35 +147,29 @@ AppAsset::register($this);
       <div class="row">
         <div class="span4 copyright text-center">
             <span>
-              <a href="/"><?= Yii::$app->name ?></a>
-              &copy; 2015 - <?= date('Y') ?>
-              Dnepr
+              <?php if(!Yii::$app->user->isGuest): ?>
+                <a href="/"><?= Yii::$app->name ?></a>
+                &copy; 2015 - <?= date('Y') ?>
+                Dnepr
+              <?php endif; ?>
             </span>
         </div>
         <div class="span4 copyright text-center">
             <span>
-              <?php
-              if(!Yii::$app->user->isGuest)
-              {
-                echo 'Авторизация прошла успешно';
-              }
-              ?>
+              <?php if(Yii::$app->user->isGuest): ?>
+                <a href="/"><?= Yii::$app->name ?></a>
+                &copy; 2015 - <?= date('Y') ?>
+                Dnepr
+              <?php else: ?>
+                Авторизация прошла успешно
+              <?php endif; ?>
             </span>
         </div>
         <div class="span4 copyright text-center">
             <span>
-              <?php
-              if(Yii::$app->user->isGuest)
-              {
-                echo 'Авторизация - ';
-                echo Html::a('Войти', ['/login']);
-              }
-              else
-              {
-                echo 'Чтобы закрыть доступ, нажмите - ';
-                echo Html::a('Выйти', ['/logout']);
-              }
-              ?>
+              <?php if(!Yii::$app->user->isGuest): ?>
+                Чтобы закрыть доступ, нажмите - <?= Html::a('Выйти', ['/logout']); ?>
+              <?php endif; ?>
             </span>
         </div>
       </div>

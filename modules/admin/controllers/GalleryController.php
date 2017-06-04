@@ -18,22 +18,6 @@ use app\modules\admin\models\UploadForm;
  */
 class GalleryController extends BehaviorsController
 {
-  public function imagePreview($model)
-  {
-    if(!empty($model->image))
-    {
-      echo
-        '<h4>Предпросмотр изображения</h4><br>' .
-        '<img src="../../images/gallery/'. $model->image .'" width="240" height="135">';
-    }
-    else
-    {
-      echo
-        '<h4>Изображение отсутствует</h4><br>' .
-        '<img src="../../images/gallery/no-image.jpg" width="240" height="135">';
-    }
-  }
-
   public function myGetGalleryCount()
   {
     $model = new Gallery();
@@ -50,9 +34,7 @@ class GalleryController extends BehaviorsController
       'query' => Gallery::find(),
     ]);
 
-    return $this->render('index', [
-      'dataProvider' => $dataProvider,
-    ]);
+    return $this->render('index', compact('dataProvider'));
   }
 
   /**
@@ -75,14 +57,20 @@ class GalleryController extends BehaviorsController
   public function actionCreate()
   {
     $model = new Gallery();
+    $file = new UploadForm();
+    $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-      return $this->redirect(['image', 'id' => $model->id]);
+      if ($file->upload($model->id, null, $file::TYPE_GALLERY)) {
+        $model->image = $file->getNameImage($model->id, null, $file::TYPE_GALLERY);
+        $model->save();
+      } else {
+        $model->image = null;
+        $model->save();
+      }
+      return $this->redirect(['view', 'id' => $model->id]);
     } else {
-      return $this->render('create', [
-        'model' => $model,
-      ]);
+      return $this->render('create', compact('file', 'model'));
     }
   }
 
@@ -95,14 +83,21 @@ class GalleryController extends BehaviorsController
   public function actionUpdate($id)
   {
     $model = $this->findModel($id);
+    $file = new UploadForm();
+    $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
 
-    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-      return $this->redirect(['image', 'id' => $model->id]);
+    if ($model->load(Yii::$app->request->post())) {
+      if ($file->upload($id, null, $file::TYPE_GALLERY)) {
+        $model->image = $file->getNameImage($id, null, $file::TYPE_GALLERY);
+        $model->save();
+      } else {
+        $model->image = null;
+        $model->save();
+        return $this->redirect(['view', 'id' => $id]);
+      }
+      return $this->redirect(['view', 'id' => $model->id]);
     } else {
-      return $this->render('update', [
-        'model' => $model,
-      ]);
+      return $this->render('update', compact('file', 'model'));
     }
   }
 
@@ -112,14 +107,15 @@ class GalleryController extends BehaviorsController
     $model = $this->findModel($id);
 
     $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
-    if (Yii::$app->request->isPost) {
-      if ($file->upload($id)) {
-        $model->image = $file->myGetNameImage($id);
+    if (Yii::$app->request->isPost)
+    {
+      if ($file->upload($id, null, $file::TYPE_GALLERY)) {
+        $model->image = $file->getNameImage($id, null, $file::TYPE_GALLERY);
         $model->save();
         return $this->redirect(['view', 'id' => $id]);
-      }
-      else
-      {
+      } else {
+        $model->image = null;
+        $model->save();
         return $this->redirect(['view', 'id' => $id]);
       }
     }

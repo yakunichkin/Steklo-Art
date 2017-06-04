@@ -3,10 +3,14 @@
 use app\modules\admin\models\Faq;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use mihaildev\ckeditor\CKEditor;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\InputFile;
+use mihaildev\elfinder\ElFinder;
+use kartik\file\FileInput;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Products */
@@ -16,10 +20,17 @@ use yii\helpers\Url;
 
 <div class="products-form">
 
-  <?php $form = ActiveForm::begin(); ?>
+  <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
   <div class="form-group">
-    <?= Html::a('Вернуться назад без сохранения', ['index'], ['class' => 'btn btn-primary']) ?>
+    <?php
+    if($model->id) {
+      $route = ['view', 'id' => $model->id];
+    } else {
+      $route = ['index'];
+    }
+    ?>
+    <?= Html::a('Вернуться назад без сохранения', $route, ['class' => 'btn btn-primary']) ?>
     <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить изменения', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success']) ?>
   </div>
   <br>
@@ -36,10 +47,20 @@ use yii\helpers\Url;
   ?>
 
   <hr>
-  <?= $form->field($model, 'main_img')->textInput(['maxlength' => true]) ?>
-  <?= $form->field($model, 'img_1')->textInput(['maxlength' => true]) ?>
-  <?= $form->field($model, 'img_2')->textInput(['maxlength' => true]) ?>
-  <?= $form->field($model, 'img_3')->textInput(['maxlength' => true]) ?>
+  <?php if (!$model->isNewRecord): ?>
+    <label>Главное изображение</label>
+    <?= $model->imageProductPreview(true, $model::NUMBER_MAIN); ?>
+    <br><br>
+    <label>Доп.изображение 1</label>
+    <?= $model->imageProductPreview(true, $model::NUMBER_1); ?>
+    <br><br>
+    <label>Доп.изображение 2</label>
+    <?= $model->imageProductPreview(true, $model::NUMBER_2); ?>
+    <br><br>
+    <label>Доп.изображение 3</label>
+    <?= $model->imageProductPreview(true, $model::NUMBER_3); ?>
+    <br><br>
+  <?php endif; ?>
 
   <?php if (!$model->isNewRecord): ?>
     <?php if ($model->id)
@@ -52,37 +73,55 @@ use yii\helpers\Url;
       <?= GridView::widget([
         'dataProvider' => $dataProviderFaq,
         'showOnEmpty' => false,
-        'emptyText' => '<label>Выпадающие блоки еще не были созданы</label>',
+        'emptyText' => '<label>Выпадающие блоки еще не были созданы...</label>',
         'summary' => '<label>Редактирование выпадающих блоков:</label>',
         'columns' => [
           'title',
           'text:html',
           [
+            'attribute' => 'image',
+            'format' => 'html',
+            'value' => function($data){
+              if ($data->image) {
+                $imagePath = '/images/faq/'. $data->image;
+              } else {
+                $imagePath = '/images/no-image.jpg';
+              }
+              return '<img src="'.$imagePath.'" width="100" height="62">';
+            }
+          ],
+          [
             'class' => 'yii\grid\ActionColumn',
             'header' => 'Действия',
             'template' => '{view}{update}{delete}',
-            'urlCreator' => function ($action, $modelFaq, $key, $index) {
-              if ($action === 'view') {
-                return Url::toRoute(['/admin/faq/view', 'id' => $modelFaq->id]);
+            'urlCreator' => function($action, $modelFaq, $key, $index) {
+              switch ($action){
+                case 'view':
+                  return Url::toRoute(['/admin/faq/view', 'id' => $modelFaq->id]);
+                  break;
+                case 'update':
+                  return Url::toRoute(['/admin/faq/update', 'id' => $modelFaq->id]);
+                  break;
+                case 'delete':
+                  return Url::toRoute(['/admin/faq/delete', 'id' => $modelFaq->id, 'product_id' => $modelFaq->product_id]);
+                  break;
+                default:
+                  return null;
+                  break;
               }
-              if ($action === 'update') {
-                return Url::toRoute(['/admin/faq/update', 'id' => $modelFaq->id, 'product_id' => $modelFaq->product_id]);
-              }
-              if ($action === 'delete') {
-                return Url::toRoute(['/admin/faq/delete', 'id' => $modelFaq->id, 'product_id' => $modelFaq->product_id]);
-              }
-            }
+             }
           ],
         ],
       ]); ?>
-      <?= Html::a('Добавить новый', ['/admin/faq/create', 'product_id' => $model->id], ['class' => 'btn btn-info']) ?>
+      <br>
+      <?= Html::a('Создать новый блок', ['/admin/faq/create', 'product_id' => $model->id], ['class' => 'btn btn-success']) ?>
+      <br>
     </div>
     <hr>
   <?php endif; ?>
 
-  <br>
   <div class="form-group">
-    <?= Html::a('Вернуться назад без сохранения', ['index'], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Вернуться назад без сохранения', $route, ['class' => 'btn btn-primary']) ?>
     <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить изменения', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success']) ?>
   </div>
 
